@@ -352,20 +352,18 @@ public class TabLayout extends HorizontalScrollView {
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        boolean result = super.dispatchKeyEvent(event);
-        if (!result) {
-            switch (event.getAction()) {
-                case KeyEvent.ACTION_DOWN:
-                    if(event.getKeyCode() == KeyEvent.KEYCODE_DPAD_LEFT) {
-                        result = selectTab(getSelectedTabPosition() - 1);
-                    }
-                    else if(event.getKeyCode() == KeyEvent.KEYCODE_DPAD_RIGHT) {
-                        result = selectTab(getSelectedTabPosition() + 1);
-                    }
-                    break;
-            }
+        switch (event.getAction()) {
+            case KeyEvent.ACTION_DOWN:
+                if(event.getKeyCode() == KeyEvent.KEYCODE_DPAD_LEFT) {
+                    return selectTab(getSelectedTabPosition() - 1);
+                }
+                else if(event.getKeyCode() == KeyEvent.KEYCODE_DPAD_RIGHT) {
+                    return selectTab(getSelectedTabPosition() + 1);
+                }
+                break;
         }
-        return result;
+
+        return super.dispatchKeyEvent(event);
     }
 
     /**
@@ -1147,26 +1145,26 @@ public class TabLayout extends HorizontalScrollView {
             return;
         }
 
-        final int startScrollX = getScrollX();
-        final int targetScrollX = calculateScrollXForTab(newPosition, 0);
-        if (startScrollX != targetScrollX) {
-            if (mScrollAnimator == null) {
-                mScrollAnimator = ViewUtils.createAnimator();
-                mScrollAnimator.setInterpolator(AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR);
-                mScrollAnimator.setDuration(ANIMATION_DURATION);
-                mScrollAnimator.setUpdateListener(new ValueAnimatorCompat.AnimatorUpdateListener() {
-                    @Override
-                    public void onAnimationUpdate(ValueAnimatorCompat animator) {
-                        scrollTo(animator.getAnimatedIntValue(), 0);
-                    }
-                });
-            }
-
-            mScrollAnimator.setIntValues(startScrollX, targetScrollX);
-            mScrollAnimator.start();
-        }
-        // Now animate the indicator
         if(null == mViewPager) { //修复indicator跳动的问题
+            final int startScrollX = getScrollX();
+            final int targetScrollX = calculateScrollXForTab(newPosition, 0);
+            if (startScrollX != targetScrollX) {
+                if (mScrollAnimator == null) {
+                    mScrollAnimator = ViewUtils.createAnimator();
+                    mScrollAnimator.setInterpolator(AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR);
+                    mScrollAnimator.setDuration(ANIMATION_DURATION);
+                    mScrollAnimator.setUpdateListener(new ValueAnimatorCompat.AnimatorUpdateListener() {
+                        @Override
+                        public void onAnimationUpdate(ValueAnimatorCompat animator) {
+                            scrollTo(animator.getAnimatedIntValue(), 0);
+                        }
+                    });
+                }
+
+                mScrollAnimator.setIntValues(startScrollX, targetScrollX);
+                mScrollAnimator.start();
+            }
+            // Now animate the indicator
             mTabStrip.animateIndicatorToPosition(newPosition, ANIMATION_DURATION);
         }
     }

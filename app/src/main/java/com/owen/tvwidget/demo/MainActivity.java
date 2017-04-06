@@ -2,7 +2,6 @@ package com.owen.tvwidget.demo;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Button;
 
 import com.tv.boost.widget.TvHorizontalScrollView;
 import com.tv.boost.widget.tablayout.TvTabLayout;
@@ -10,7 +9,6 @@ import com.tv.boost.widget.tablayout.TvTabLayout;
 
 public class MainActivity extends AppCompatActivity {
     
-    private Button mButton;
     private TvHorizontalScrollView mHorizontalScrollView;
 
     @Override
@@ -31,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
             mTabLayout2.addTab(mTabLayout2.newTab().setText("标题"+i));
 //            mTabLayout3.addTab(mTabLayout3.newTab().setText("标题"+i));
         }
-        
         
     }
 }

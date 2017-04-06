@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:padding="@dimen/x10"
     tools:context="com.owen.tvwidget.demo.MainActivity">
-
+    
     <com.tv.boost.widget.tablayout.TvTabLayout
         android:id="@+id/tablayout"
         android:layout_width="match_parent"

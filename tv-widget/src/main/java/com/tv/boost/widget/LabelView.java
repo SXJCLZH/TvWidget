@@ -174,9 +174,7 @@ public class LabelView extends View {
 		if (mFillTriangle) {
 			if (mGravity == (Gravity.TOP | Gravity.LEFT)) {
 				mPath.reset();
-                if(mRadius > 0) {
-                    mPath.arcTo(new RectF(0, 0, mRadius * 2f, mRadius * 2f), 180, 90);
-                }
+				mPath.arcTo(new RectF(0, 0, mRadius * 2f, mRadius * 2f), 180, 90);
                 mPath.lineTo(size, 0);
                 mPath.lineTo(0, size);
                 mPath.close();
@@ -186,9 +184,7 @@ public class LabelView extends View {
 
 			} else if (mGravity == (Gravity.TOP | Gravity.RIGHT)) {
 				mPath.reset();
-                if(mRadius > 0) {
-                    mPath.arcTo(new RectF(size - mRadius * 2f, 0, size, mRadius * 2f), 270, 90);
-                }
+				mPath.arcTo(new RectF(size - mRadius * 2f, 0, size, mRadius * 2f), 270, 90);
                 mPath.lineTo(size, size);
                 mPath.lineTo(0, 0);
                 mPath.close();
@@ -197,9 +193,7 @@ public class LabelView extends View {
 				drawTextWhenFill(size, DEFAULT_DEGREES, canvas, true);
 			} else if (mGravity == (Gravity.BOTTOM | Gravity.LEFT)) {
 				mPath.reset();
-                if(mRadius > 0) {
-                    mPath.arcTo(new RectF(0, size - mRadius * 2f, mRadius * 2f, size), 90, 90);
-                }
+				mPath.arcTo(new RectF(0, size - mRadius * 2f, mRadius * 2f, size), 90, 90);
                 mPath.lineTo(0, 0);
                 mPath.lineTo(size, size);
                 mPath.close();
@@ -208,9 +202,7 @@ public class LabelView extends View {
 				drawTextWhenFill(size, DEFAULT_DEGREES, canvas, false);
 			} else if (mGravity == (Gravity.BOTTOM | Gravity.RIGHT)) {
 				mPath.reset();
-                if(mRadius > 0) {
-                    mPath.arcTo(new RectF(size - mRadius * 2f, size - mRadius * 2f, size, size), 0, 90);
-                }
+				mPath.arcTo(new RectF(size - mRadius * 2f, size - mRadius * 2f, size, size), 0, 90);
                 mPath.lineTo(0, size);
                 mPath.lineTo(size, 0);
                 mPath.close();
