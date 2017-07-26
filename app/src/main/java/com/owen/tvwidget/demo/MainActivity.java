@@ -69,8 +69,6 @@ public class MainActivity extends AppCompatActivity {
 //                        .noShimmer() //不使用闪光
                         .build(this);
 
-
-
         //方式一：绑定整个页面的焦点监听
         focusBorder.boundGlobalFocusListener(new FocusBorder.OnFocusCallback() {
             @Override
@@ -99,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //方式二：单独控制焦点监听
-        ViewGroup viewGroup = (ViewGroup) findViewById(R.id.scroll_child_layout);
+        /*ViewGroup viewGroup = (ViewGroup) findViewById(R.id.scroll_child_layout);
         for(int i=0; i<viewGroup.getChildCount(); i++) {
             View view = viewGroup.getChildAt(i);
             if(view.isFocusable()) {
@@ -127,6 +125,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
             }
-        }
+        }*/
     }
 }
