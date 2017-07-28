@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 
 import com.tv.boost.widget.TvHorizontalScrollView;
 import com.tv.boost.widget.focus.AbsFocusBorder;
-import com.tv.boost.widget.focus.ColorFocusBorder;
-import com.tv.boost.widget.focus.DrawableFocusBorder;
 import com.tv.boost.widget.focus.FocusBorder;
 import com.tv.boost.widget.tablayout.TvTabLayout;
 
@@ -44,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     //焦点框的使用-------------------------------------------------------------------------------------------------
     private AbsFocusBorder.Builder initBuilder(boolean isColorBorder) {
         if(isColorBorder) {
-            return new ColorFocusBorder.Builder()
+            return new FocusBorder.Builder().asColor()
 //                    .shadowWidth(18f) //阴影宽度(方式一)
                     .shadowWidth(TypedValue.COMPLEX_UNIT_DIP, 18f) //阴影宽度(方式二)
                     .shadowColor(getResources().getColor(R.color.colorAccent)) //阴影颜色
@@ -53,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                     .borderColor(getResources().getColor(R.color.colorPrimaryDark)) //边框颜色
             ;
         } else {
-            return new DrawableFocusBorder.Builder()
+            return new FocusBorder.Builder().asDrawable()
                     .borderResId(R.drawable.focus)
 //                    .borderDrawable(drawable)
             ;
@@ -65,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         final FocusBorder focusBorder = initBuilder(isColorBorder)//以下为公共配置项
 //                        .animDuration(400) //动画时长
 //                        .padding(10f) 
+//                        .shimmerDuration(800) //闪光时长
 //                        .shimmerColor(getResources().getColor(R.color.shimmerColor)) //闪光颜色(默认白色)
 //                        .noShimmer() //不使用闪光
                         .build(this);
@@ -75,18 +74,17 @@ public class MainActivity extends AppCompatActivity {
             public FocusBorder.Options onFocus(View oldFocus, View newFocus) {
                 switch (newFocus.getId()) {
                     case R.id.btn:
-                        
-                        return isColorBorder ? ColorFocusBorder.Options.get(1f, 1f, getResources().getDimension(R.dimen.x90)) 
-                                : DrawableFocusBorder.Options.get(1f, 1f);
+                        return isColorBorder ? FocusBorder.OptionsFactory.get(1f, 1f, getResources().getDimension(R.dimen.x90))
+                                : FocusBorder.OptionsFactory.get(1f, 1f);
 
                     case R.id.img2:
                     case R.id.img1:
-                        return isColorBorder ? ColorFocusBorder.Options.get(1f, 1f, getResources().getDimension(R.dimen.x90))
-                                :DrawableFocusBorder.Options.get(1f, 1f);
+                        return isColorBorder ? FocusBorder.OptionsFactory.get(1f, 1f, getResources().getDimension(R.dimen.x90))
+                                :FocusBorder.OptionsFactory.get(1f, 1f);
                 }
                 if(null != newFocus.getParent() && ((ViewGroup)newFocus.getParent()).getId() == R.id.scroll_child_layout) {
-                    return isColorBorder ? ColorFocusBorder.Options.get(1f, 1f, 4f)
-                            : DrawableFocusBorder.Options.get(1f, 1f);
+                    return isColorBorder ? FocusBorder.OptionsFactory.get(1f, 1f, 4f)
+                            : FocusBorder.OptionsFactory.get(1f, 1f);
                 }
 
                 focusBorder.setVisible(false);
@@ -108,17 +106,21 @@ public class MainActivity extends AppCompatActivity {
                             switch (v.getId()) {
                                 case R.id.btn:
                                     focusBorder.onFocus(v, isColorBorder ? 
-                                            ColorFocusBorder.Options.get(1f, 1f, getResources().getDimension(R.dimen.x90)) : DrawableFocusBorder.Options.get(1f, 1f));
+                                            FocusBorder.OptionsFactory.get(1f, 1f, getResources().getDimension(R.dimen.x90)) 
+                                            : FocusBorder.OptionsFactory.get(1f, 1f));
                                     break;
 
                                 case R.id.img2:
                                 case R.id.img1:
                                     focusBorder.onFocus(v, isColorBorder ? 
-                                            ColorFocusBorder.Options.get(1f, 1f, getResources().getDimension(R.dimen.x90)) : DrawableFocusBorder.Options.get(1f, 1f));
+                                            FocusBorder.OptionsFactory.get(1f, 1f, getResources().getDimension(R.dimen.x90)) 
+                                            : FocusBorder.OptionsFactory.get(1f, 1f));
                                     break;
 
                                 default:
-                                    focusBorder.onFocus(v, isColorBorder ? ColorFocusBorder.Options.get(1f, 1f, 4f) : DrawableFocusBorder.Options.get(1f, 1f));
+                                    focusBorder.onFocus(v, isColorBorder ? 
+                                    FocusBorder.OptionsFactory.get(1f, 1f, 4f) 
+                                    : FocusBorder.OptionsFactory.get(1f, 1f));
                                     break;
                             }
                         }

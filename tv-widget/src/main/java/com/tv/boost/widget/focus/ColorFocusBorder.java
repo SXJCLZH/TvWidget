@@ -33,16 +33,16 @@ public class ColorFocusBorder extends AbsFocusBorder {
 
     private ObjectAnimator mRoundRadiusAnimator;
     
-    private ColorFocusBorder(Context context, int shimmerColor, boolean isShimmerAnim, long animDuration, RectF paddingRectF,
+    private ColorFocusBorder(Context context, int shimmerColor, long shimmerDuration, boolean isShimmerAnim, long animDuration, RectF paddingOfsetRectF,
                              int shadowColor, float shadowWidth, int borderColor, float borderWidth) {
-        super(context, shimmerColor, isShimmerAnim, animDuration, paddingRectF);
+        super(context, shimmerColor, shimmerDuration, isShimmerAnim, animDuration, paddingOfsetRectF);
         this.mShadowColor = shadowColor;
         this.mShadowWidth = shadowWidth;
         this.mBorderColor = borderColor;
         this.mBorderWidth = borderWidth;
 
         final float padding = mShadowWidth + mBorderWidth;
-        appendPadding(padding, padding, padding, padding);
+        mPaddingRectF.set(padding, padding, padding, padding);
         initPaint();
     }
     
@@ -203,13 +203,19 @@ public class ColorFocusBorder extends AbsFocusBorder {
                 throw new NullPointerException("The activity cannot be null");
             }
             ViewGroup parent = (ViewGroup) activity.findViewById(android.R.id.content);
-            ColorFocusBorder boriderView = new ColorFocusBorder(activity.getApplicationContext(),
-                    mShimmerColor, mIsShimmerAnim, mAnimDuration, mPaddingRectF, 
-                    mShadowColor, mShadowWidth, mBorderColor, mBorderWidth);
-            if(null != parent) {
-                final ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(1,1);
-                parent.addView(boriderView, lp);
+            return build(parent);
+        }
+
+        @Override
+        public FocusBorder build(ViewGroup parent) {
+            if(null == parent) {
+                throw new NullPointerException("The FocusBorder parent cannot be null");
             }
+            final ColorFocusBorder boriderView = new ColorFocusBorder(parent.getContext(),
+                    mShimmerColor, mShimmerDuration, mIsShimmerAnim, mAnimDuration, mPaddingOfsetRectF,
+                    mShadowColor, mShadowWidth, mBorderColor, mBorderWidth);
+            final ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(1,1);
+            parent.addView(boriderView, lp);
             return boriderView;
         }
     }

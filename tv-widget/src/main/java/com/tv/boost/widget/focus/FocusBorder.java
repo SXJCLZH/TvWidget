@@ -1,6 +1,5 @@
 package com.tv.boost.widget.focus;
 
-import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.view.View;
 
@@ -26,21 +25,23 @@ public interface FocusBorder {
     
     abstract class Options {}
     
-    abstract class Builder {
-        public abstract FocusBorder build(Activity activity);
+    class Builder {
+        public final ColorFocusBorder.Builder asColor() {
+            return new ColorFocusBorder.Builder();
+        }
+        
+        public final DrawableFocusBorder.Builder asDrawable() {
+            return new DrawableFocusBorder.Builder();
+        }
     }
     
-    class BuilderFactory {
+    class OptionsFactory {
+        public static final Options get(float scaleX, float scaleY) {
+            return AbsFocusBorder.Options.get(scaleX, scaleY);
+        }
         
-        public static <B extends Builder> B get(Class<B> builder) {
-            try {
-                return (B)builder.newInstance();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-            return null;
+        public static final Options get(float scaleX, float scaleY, float roundRadius) {
+            return ColorFocusBorder.Options.get(scaleX, scaleY, roundRadius);
         }
     }
 }

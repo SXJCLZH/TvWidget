@@ -19,13 +19,13 @@ import java.util.List;
 public class DrawableFocusBorder extends AbsFocusBorder {
     private Drawable mBorderDrawable;
     
-    private DrawableFocusBorder(Context context, int shimmerColor, boolean isShimmerAnim, long animDuration, RectF paddingRectF, Drawable borderDrawable) {
-        super(context, shimmerColor, isShimmerAnim, animDuration, paddingRectF);
+    private DrawableFocusBorder(Context context, int shimmerColor, long shimmerDuration, boolean isShimmerAnim, long animDuration, RectF paddingOfsetRectF, Drawable borderDrawable) {
+        super(context, shimmerColor, shimmerDuration, isShimmerAnim, animDuration, paddingOfsetRectF);
         
         this.mBorderDrawable = borderDrawable;
         final Rect paddingRect = new Rect();
         mBorderDrawable.getPadding(paddingRect);
-        appendPadding(paddingRect.left, paddingRect.top, paddingRect.right, paddingRect.bottom);
+        mPaddingRectF.set(paddingRect);
         
         if(Build.VERSION.SDK_INT >= 16) {
             setBackground(mBorderDrawable);
@@ -78,14 +78,22 @@ public class DrawableFocusBorder extends AbsFocusBorder {
                 throw new RuntimeException("The activity cannot be null");
             }
             final ViewGroup parent = (ViewGroup) activity.findViewById(android.R.id.content);
-            final Drawable drawable = null != mBorderDrawable ? mBorderDrawable :
-                    Build.VERSION.SDK_INT >= 21 ? activity.getDrawable(mBorderResId) : activity.getResources().getDrawable(mBorderResId);
-            DrawableFocusBorder boriderView = new DrawableFocusBorder(
-                    activity.getApplicationContext(), mShimmerColor, mIsShimmerAnim, mAnimDuration, mPaddingRectF, drawable);
-            if(null != parent) {
-                final ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(1,1);
-                parent.addView(boriderView, lp);
+            return build(parent);
+        }
+
+        @Override
+        public FocusBorder build(ViewGroup parent) {
+            if(null == parent) {
+                throw new NullPointerException("The FocusBorder parent cannot be null");
             }
+            final Drawable drawable = null != mBorderDrawable ? mBorderDrawable :
+                    Build.VERSION.SDK_INT >= 21 ? parent.getContext().getDrawable(mBorderResId) 
+                            : parent.getContext().getResources().getDrawable(mBorderResId);
+            final DrawableFocusBorder boriderView = new DrawableFocusBorder(
+                    parent.getContext(), mShimmerColor, mShimmerDuration, mIsShimmerAnim, 
+                    mAnimDuration, mPaddingOfsetRectF, drawable);
+            final ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(1,1);
+            parent.addView(boriderView, lp);
             return boriderView;
         }
     }
