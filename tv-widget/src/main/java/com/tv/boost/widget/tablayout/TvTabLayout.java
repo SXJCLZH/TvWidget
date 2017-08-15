@@ -34,7 +34,7 @@ public class TvTabLayout extends TabLayout {
 
     @Override
     protected void onTabSelected(@NonNull Tab tab) {
-        ViewPropertyAnimator animator = tab.getView().animate();
+        final ViewPropertyAnimator animator = tab.getView().animate();
         if(mScaleValue > 1) {
             animator.scaleX(mScaleValue).scaleY(mScaleValue)
                     .setDuration(500)
@@ -50,7 +50,7 @@ public class TvTabLayout extends TabLayout {
 
     @Override
     protected void onTabUnselected(@NonNull Tab tab) {
-        ViewPropertyAnimator animator = tab.getView().animate();
+        final ViewPropertyAnimator animator = tab.getView().animate();
         if(mScaleValue > 1) {
             animator.scaleX(1).scaleY(1)
                     .setDuration(500)

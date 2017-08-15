@@ -446,7 +446,7 @@ public class TabLayout extends HorizontalScrollView {
      * @param position The new position of the tab
      * @param setSelected True if the added tab should become the selected tab.
      */
-    public void addTab(@NonNull Tab tab, int position, boolean setSelected) {
+    public void addTab(@NonNull final Tab tab, int position, boolean setSelected) {
         if (tab.mParent != this) {
             throw new IllegalArgumentException("Tab belongs to a different TabLayout.");
         }
@@ -454,7 +454,12 @@ public class TabLayout extends HorizontalScrollView {
         addTabView(tab);
 
         if (setSelected) {
-            tab.select();
+            tab.getView().post(new Runnable() {
+                @Override
+                public void run() {
+                    tab.select();
+                }
+            });
         }
     }
 
