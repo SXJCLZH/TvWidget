@@ -44,11 +44,11 @@ public class MainActivity extends AppCompatActivity {
         if(isColorBorder) {
             return new FocusBorder.Builder().asColor()
 //                    .shadowWidth(18f) //阴影宽度(方式一)
-                    .shadowWidth(TypedValue.COMPLEX_UNIT_DIP, 18f) //阴影宽度(方式二)
-                    .shadowColor(getResources().getColor(R.color.colorAccent)) //阴影颜色
+                    .shadowWidth(TypedValue.COMPLEX_UNIT_DIP, 20f) //阴影宽度(方式二)
+                    .shadowColor(getResources().getColor(R.color.colorShadow)) //阴影颜色
 //                    .borderWidth(2f) //边框宽度
                     .borderWidth(TypedValue.COMPLEX_UNIT_DIP, 2f) //边框宽度
-                    .borderColor(getResources().getColor(R.color.colorPrimaryDark)) //边框颜色
+                    .borderColor(getResources().getColor(R.color.colorBorder)) //边框颜色
             ;
         } else {
             return new FocusBorder.Builder().asDrawable()
@@ -73,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public FocusBorder.Options onFocus(View oldFocus, View newFocus) {
                 switch (newFocus.getId()) {
-                    case R.id.btn:
-                        return isColorBorder ? FocusBorder.OptionsFactory.get(1f, 1f, getResources().getDimension(R.dimen.x90))
+                    case R.id.layout_rfl:
+                        return isColorBorder ? FocusBorder.OptionsFactory.get(1f, 1f, getResources().getDimension(R.dimen.x30))
                                 : FocusBorder.OptionsFactory.get(1f, 1f);
 
                     case R.id.img2:
@@ -104,9 +104,9 @@ public class MainActivity extends AppCompatActivity {
                     public void onFocusChange(View v, boolean hasFocus) {
                         if(hasFocus) {
                             switch (v.getId()) {
-                                case R.id.btn:
+                                case R.id.layout_rfl:
                                     focusBorder.onFocus(v, isColorBorder ? 
-                                            FocusBorder.OptionsFactory.get(1f, 1f, getResources().getDimension(R.dimen.x90)) 
+                                            FocusBorder.OptionsFactory.get(1f, 1f, getResources().getDimension(R.dimen.x30)) 
                                             : FocusBorder.OptionsFactory.get(1f, 1f));
                                     break;
 

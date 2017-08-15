@@ -155,11 +155,19 @@
                 android:layout_gravity="center_vertical"
                 android:focusable="true"
                 android:background="@mipmap/icon_1_1"/>
-            <Button
-                android:id="@+id/btn"
+            <com.tv.boost.widget.RoundFrameLayout
+                android:id="@+id/layout_rfl"
                 android:layout_width="200dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/toast_radius_bg"/>
+                android:focusable="true"
+                app:rfl_radius="@dimen/x30">
+                <TextView
+                    android:text="TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:background="#005500"/>
+            </com.tv.boost.widget.RoundFrameLayout>
             <ImageView
                 android:id="@+id/img2"
                 android:layout_width="150dp"

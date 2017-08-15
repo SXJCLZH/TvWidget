@@ -6,7 +6,7 @@
 
 ### 效果
 
-![](https://github.com/zhousuqiang/TvWidgetDemo/blob/master/img/tv_widget_img.png)
+![](https://github.com/zhousuqiang/TvWidgetDemo/blob/master/img/tv_widget_demo.gif)
     
 
 ### 更详细的使用请见exmaple

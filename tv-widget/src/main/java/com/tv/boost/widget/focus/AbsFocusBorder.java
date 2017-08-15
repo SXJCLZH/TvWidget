@@ -18,6 +18,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -66,6 +67,9 @@ public abstract class AbsFocusBorder extends View implements FocusBorder, ViewTr
     private OnFocusCallback mOnFocusCallback;
     private boolean mIsVisible = false;
     
+    private float mScaleX;
+    private float mScaleY;
+    
     protected AbsFocusBorder(Context context, int shimmerColor, long shimmerDuration, boolean isShimmerAnim, long animDuration, RectF paddingOfsetRectF) {
         super(context);
         
@@ -95,7 +99,10 @@ public abstract class AbsFocusBorder extends View implements FocusBorder, ViewTr
         if (mShimmerAnimating) {
             canvas.save();
             mTempRectF.set(mFrameRectF);
-            mTempRectF.inset(2f, 2f);
+            mTempRectF.left += mPaddingOfsetRectF.left;
+            mTempRectF.top += mPaddingOfsetRectF.top;
+            mTempRectF.right -= mPaddingOfsetRectF.right;
+            mTempRectF.bottom -= mPaddingOfsetRectF.bottom;
             float shimmerTranslateX = mTempRectF.width() * mShimmerTranslate;
             float shimmerTranslateY = mTempRectF.height() * mShimmerTranslate;
             mShimmerGradientMatrix.setTranslate(shimmerTranslateX, shimmerTranslateY);
@@ -128,8 +135,13 @@ public abstract class AbsFocusBorder extends View implements FocusBorder, ViewTr
     private void setShimmerAnimating(boolean shimmerAnimating) {
         mShimmerAnimating = shimmerAnimating;
         if(mShimmerAnimating) {
+            mTempRectF.set(mFrameRectF);
+            mTempRectF.left += mPaddingOfsetRectF.left;
+            mTempRectF.top += mPaddingOfsetRectF.top;
+            mTempRectF.right -= mPaddingOfsetRectF.right;
+            mTempRectF.bottom -= mPaddingOfsetRectF.bottom;
             mShimmerLinearGradient = new LinearGradient(
-                    0, 0, mFrameRectF.width(), mFrameRectF.height(),
+                    0, 0, mTempRectF.width(), mTempRectF.height(),
                     new int[]{0x00FFFFFF, 0x1AFFFFFF, mShimmerColor, 0x1AFFFFFF, 0x00FFFFFF},
                     new float[]{0f, 0.2f, 0.5f, 0.8f, 1f}, Shader.TileMode.CLAMP);
             mShimmerPaint.setShader(mShimmerLinearGradient);
@@ -229,11 +241,12 @@ public abstract class AbsFocusBorder extends View implements FocusBorder, ViewTr
             //兼容TvRecyclerView
             if (theParent instanceof RecyclerView) {
                 final RecyclerView rv = (RecyclerView)theParent;
-                registerScrollListener((RecyclerView)theParent);
-                tag = ((View) theParent).getTag();
+                registerScrollListener(rv);
+                tag = rv.getTag();
                 if (null != tag && tag instanceof Point) {
                     point = (Point) tag;
                     rect.offset(-point.x, -point.y);
+//                    Log.i("@!@!", "point.x="+point.x+" point.y="+point.y);
                 }
                 if(null == tag && rv.getScrollState() != RecyclerView.SCROLL_STATE_IDLE
                         && (mRecyclerViewScrollListener.mScrolledX != 0 || mRecyclerViewScrollListener.mScrolledY != 0)) {
@@ -297,7 +310,9 @@ public abstract class AbsFocusBorder extends View implements FocusBorder, ViewTr
 
     private void runFocusAnimation(View focusView, Options options) {
         setVisible(true);
-        runFocusScaleAnimation(focusView, options.scaleX, options.scaleY); // 焦点缩放动画
+        mScaleX = options.scaleX;
+        mScaleY = options.scaleY;
+        runFocusScaleAnimation(focusView, mScaleX, mScaleY); // 焦点缩放动画
         runBorderAnimation(focusView, options); // 移动边框的动画。
     }
     
@@ -444,19 +459,20 @@ public abstract class AbsFocusBorder extends View implements FocusBorder, ViewTr
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             mScrolledX = Math.abs(dx) == 1 ? 0 : dx;
             mScrolledY = Math.abs(dy) == 1 ? 0 : dy;
-//            Log.i("@!@!", "onScrolled...dx="+dx+" dy="+dy);
+            Log.i("@!@!", "onScrolled...dx="+dx+" dy="+dy);
         }
 
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             if(newState == RecyclerView.SCROLL_STATE_IDLE) {
-//                Log.i("@!@!", "onScrollStateChanged...IDLE");
+                Log.i("@!@!", "onScrollStateChanged...IDLE");
                 final AbsFocusBorder border = mFocusBorder.get();
                 final View focused = recyclerView.getFocusedChild();
 //                Log.i("@!@!", "onScrollStateChanged...border is null = " + (null == border));
                 if(null != border && null != focused) {
                     if (border.mReAnim || mScrolledX != 0 || mScrolledY != 0) {
-                        border.runBorderAnimation(focused, Options.OptionsHolder.INSTANCE);
+                        Log.i("@!@!", "onScrollStateChanged...scleX = " + Options.OptionsHolder.INSTANCE.scaleX + " scleY = "+ Options.OptionsHolder.INSTANCE.scaleY);
+                        border.runBorderAnimation(focused, Options.get(border.mScaleX, border.mScaleY));
                     }
                 }
                 mScrolledX = mScrolledY = 0;

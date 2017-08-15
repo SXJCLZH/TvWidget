@@ -91,7 +91,7 @@ import static android.support.v4.view.ViewPager.SCROLL_STATE_SETTLING;
  *
  * <h3>ViewPager integration</h3>
  * <p>
- * If you're using a {@link android.support.v4.view.ViewPager} together
+ * If you're using a {@link ViewPager} together
  * with this layout, you can call {@link #setupWithViewPager(ViewPager)} to link the two together.
  * This layout will be automatically populated from the {@link PagerAdapter}'s page titles.</p>
  *
@@ -282,7 +282,7 @@ public class TabLayout extends HorizontalScrollView {
 
         // Add the TabStrip
         mTabStrip = new SlidingTabStrip(context);
-        super.addView(mTabStrip, 0, new HorizontalScrollView.LayoutParams(
+        super.addView(mTabStrip, 0, new LayoutParams(
                 LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT));
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TabLayout, defStyleAttr, 0);
@@ -362,13 +362,13 @@ public class TabLayout extends HorizontalScrollView {
                 }
                 break;
         }
-
+        
         return super.dispatchKeyEvent(event);
     }
 
     /**
      * Set the scroll position of the tabs. This is useful for when the tabs are being displayed as
-     * part of a scrolling container such as {@link android.support.v4.view.ViewPager}.
+     * part of a scrolling container such as {@link ViewPager}.
      * <p>
      * Calling this method does not update the selected tab, it is only used for drawing purposes.
      *
@@ -633,7 +633,7 @@ public class TabLayout extends HorizontalScrollView {
      * <li>{@link #MODE_SCROLLABLE}: Scrollable tabs display a subset of tabs at any given moment,
      * and can contain longer tab labels and a larger number of tabs. They are best used for
      * browsing contexts in touch interfaces when users don’t need to directly compare the tab
-     * labels. This mode is commonly used with a {@link android.support.v4.view.ViewPager}.</li>
+     * labels. This mode is commonly used with a {@link ViewPager}.</li>
      * </ul>
      *
      * @param mode one of {@link #MODE_FIXED} or {@link #MODE_SCROLLABLE}.
@@ -1160,7 +1160,7 @@ public class TabLayout extends HorizontalScrollView {
                         }
                     });
                 }
-
+    
                 mScrollAnimator.setIntValues(startScrollX, targetScrollX);
                 mScrollAnimator.start();
             }
@@ -1251,6 +1251,7 @@ public class TabLayout extends HorizontalScrollView {
     }
 
     protected void onTabReselected(@NonNull final Tab tab) {
+        onTabReselected(tab);
     }
 
     private int calculateScrollXForTab(int position, float positionOffset) {
@@ -2032,7 +2033,7 @@ public class TabLayout extends HorizontalScrollView {
                     // If the tabs fit within our width minus gutters, we will set all tabs to have
                     // the same width
                     for (int i = 0; i < count; i++) {
-                        final LinearLayout.LayoutParams lp =
+                        final LayoutParams lp =
                                 (LayoutParams) getChildAt(i).getLayoutParams();
                         if (lp.width != largestTabWidth || lp.weight != 0) {
                             lp.width = largestTabWidth;

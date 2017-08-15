@@ -4,5 +4,6 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     
-    <color name="shimmerColor">#66FFFFFF</color>
+    <color name="colorBorder">#00FF00</color>
+    <color name="colorShadow">#3FBB66</color>
 </resources>
