@@ -15,6 +15,7 @@ import com.tv.boost.R;
 
 /**
  * Created by owen on 2016/10/20.
+ * 
  */
 
 public class RoundFrameLayout extends FrameLayout {
@@ -86,13 +87,10 @@ public class RoundFrameLayout extends FrameLayout {
             super.draw(canvas);
         } else {
             mIsDrawn = true;
-            final int count = canvas.save();
-            final int count2 = canvas.saveLayer(mRoundRectF, null, Canvas.ALL_SAVE_FLAG);
+            canvas.saveLayer(mRoundRectF, null, Canvas.ALL_SAVE_FLAG);
             super.draw(canvas);
             canvas.drawPath(mRoundPath, mRoundPaint);
-            if(count2 > 0)
-                canvas.restoreToCount(count2);
-            canvas.restoreToCount(count);
+            canvas.restore();
         }
     }
 
@@ -101,13 +99,10 @@ public class RoundFrameLayout extends FrameLayout {
         if(mIsDrawn || !mIsDrawRound) {
             super.dispatchDraw(canvas);
         } else {
-            final int count = canvas.save();
-            final int count2 = canvas.saveLayer(mRoundRectF, null, Canvas.ALL_SAVE_FLAG);
+            canvas.saveLayer(mRoundRectF, null, Canvas.ALL_SAVE_FLAG);
             super.dispatchDraw(canvas);
             canvas.drawPath(mRoundPath, mRoundPaint);
-            if(count2 > 0)
-                canvas.restoreToCount(count2);
-            canvas.restoreToCount(count);
+            canvas.restore();
         }
     }
 }
