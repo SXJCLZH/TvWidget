@@ -335,7 +335,8 @@ public abstract class AbsFocusBorder extends View implements FocusBorder, ViewTr
      * @param 
      */
     protected void runFocusScaleAnimation(@Nullable View oldOrNewFocusView, float scaleX, float scaleY) {
-         oldOrNewFocusView.animate().scaleX(scaleX).scaleY(scaleY).setDuration(mAnimDuration).start();
+        if(null != oldOrNewFocusView)
+            oldOrNewFocusView.animate().scaleX(scaleX).scaleY(scaleY).setDuration(mAnimDuration).start();
     }
 
     protected void createBorderAnimation(View focusView, Options options) {
