@@ -1,10 +1,12 @@
-package com.tv.boost.widget;
+package com.owen.widget;
 
 import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Created by owen on 16/2/28.
+ *
+ * @author owen
+ * @date 16/2/28
  */
 public interface OnItemListener {
     void onItemSelected(ViewGroup parent, View itemView, int position);

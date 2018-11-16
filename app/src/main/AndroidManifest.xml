@@ -8,6 +8,14 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="design_width_in_dp"
+            android:value="1280"/>
+        <meta-data
+            android:name="design_height_in_dp"
+            android:value="720"/>
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -15,7 +23,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
         <activity android:name=".SecondActivity"/>
+
     </application>
 
 </manifest>

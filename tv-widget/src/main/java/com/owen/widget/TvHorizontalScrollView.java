@@ -1,4 +1,4 @@
-package com.tv.boost.widget;
+package com.owen.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -10,12 +10,14 @@ import android.view.animation.Interpolator;
 import android.widget.HorizontalScrollView;
 import android.widget.OverScroller;
 
-import com.tv.boost.R;
+import com.owen.R;
 
 import java.lang.reflect.Field;
 
 /**
- * Created by owen on 2016/10/21.
+ *
+ * @author owen
+ * @date 2016/10/21
  */
 
 public class TvHorizontalScrollView extends HorizontalScrollView {
@@ -37,12 +39,13 @@ public class TvHorizontalScrollView extends HorizontalScrollView {
         initScroller(getContext());
         
         if(null != attrs) {
-            TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TvScrollView, defStyleAttr, 0);
+            TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TvHorizontalScrollView, defStyleAttr, 0);
             if(null != a) {
-                mSelectedItemOffsetStart = a.getDimension(R.styleable.TvScrollView_tsv_selected_offset_start, 0);
-                mSelectedItemOffsetEnd = a.getDimension(R.styleable.TvScrollView_tsv_selected_offset_end, 0);
-                mIsSelectedCentered = a.getBoolean(R.styleable.TvScrollView_tsv_is_selected_centered, false);
-                setScrollerDuration(a.getInt(R.styleable.TvScrollView_tsv_scroller_duration, 600));
+                mSelectedItemOffsetStart = a.getDimension(R.styleable.TvHorizontalScrollView_hsv_selected_offset_start, 0);
+                mSelectedItemOffsetEnd = a.getDimension(R.styleable.TvHorizontalScrollView_hsv_selected_offset_end, 0);
+                mIsSelectedCentered = a.getBoolean(R.styleable.TvHorizontalScrollView_hsv_is_selected_centered, false);
+                setScrollerDuration(a.getInt(R.styleable.TvHorizontalScrollView_hsv_scroller_duration, 600));
+                a.recycle();
             }
         }
         

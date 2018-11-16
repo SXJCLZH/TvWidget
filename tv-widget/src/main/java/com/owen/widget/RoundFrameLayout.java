@@ -1,4 +1,4 @@
-package com.tv.boost.widget;
+package com.owen.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -8,16 +8,20 @@ import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
-import com.tv.boost.R;
+import com.owen.R;
+
+import static android.graphics.Canvas.ALL_SAVE_FLAG;
 
 /**
- * Created by owen on 2016/10/20.
+ *
+ * @author owen
+ * @date 2016/10/20
  * 
  */
-
 public class RoundFrameLayout extends FrameLayout {
 
     private float mTopLeftRadius;
@@ -87,7 +91,11 @@ public class RoundFrameLayout extends FrameLayout {
             super.draw(canvas);
         } else {
             mIsDrawn = true;
-            canvas.saveLayer(mRoundRectF, null, Canvas.ALL_SAVE_FLAG);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                canvas.saveLayer(mRoundRectF, null);
+            } else {
+                canvas.saveLayer(mRoundRectF, null, ALL_SAVE_FLAG);
+            }
             super.draw(canvas);
             canvas.drawPath(mRoundPath, mRoundPaint);
             canvas.restore();
@@ -99,7 +107,11 @@ public class RoundFrameLayout extends FrameLayout {
         if(mIsDrawn || !mIsDrawRound) {
             super.dispatchDraw(canvas);
         } else {
-            canvas.saveLayer(mRoundRectF, null, Canvas.ALL_SAVE_FLAG);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                canvas.saveLayer(mRoundRectF, null);
+            } else {
+                canvas.saveLayer(mRoundRectF, null, ALL_SAVE_FLAG);
+            }
             super.dispatchDraw(canvas);
             canvas.drawPath(mRoundPath, mRoundPaint);
             canvas.restore();

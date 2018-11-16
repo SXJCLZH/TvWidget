@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-    <declare-styleable name="IconButton">
+    <declare-styleable name="TvIconButton">
         <attr name="tv_icon" format="reference"/>
         <attr name="tv_iconWidth" format="dimension"/>
         <attr name="tv_iconHeight" format="dimension"/>

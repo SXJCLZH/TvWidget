@@ -1,4 +1,4 @@
-package com.tv.boost.adapter;
+package com.owen.adapter;
 
 import android.content.Context;
 import android.support.annotation.Nullable;

@@ -1,4 +1,4 @@
-package com.tv.boost.widget;
+package com.owen.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -11,7 +11,7 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
 
-import com.tv.boost.R;
+import com.owen.R;
 
 /**
  * 原创：https://github.com/FrozenFreeFall/Android-tv-widget

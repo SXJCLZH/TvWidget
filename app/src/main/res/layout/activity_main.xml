@@ -8,69 +8,73 @@
     android:orientation="vertical"
     android:padding="@dimen/x10"
     tools:context="com.owen.tvwidget.demo.MainActivity">
-    
-    <com.tv.boost.widget.tablayout.TvTabLayout
+
+    <com.owen.tab.TvTabLayout
         android:id="@+id/tablayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/y10"
+        app:tabGravity="center"
+        app:tabIndicatorHeight="@dimen/y15"
         app:tabIndicatorResId="@drawable/zx_p1_light"
         app:tabIndicatorWidth="@dimen/x108"
-        app:tabIndicatorHeight="@dimen/y15"
         app:tabMinWidth="@dimen/x220"
-        app:tabScrollMode="scrollable"
-        app:tabGravity="center"
         app:tabPaddingBottom="@dimen/x12"
+        app:tabScrollMode="scrollable"
         app:tabTexSize="@dimen/x22"
-        app:tabTextColor="@drawable/selector_tab_font_color"/>
+        app:tabTextColor="@drawable/selector_tab_font_color"
+        app:tabTextSelectedScale="1.2"/>
 
-    <com.tv.boost.widget.tablayout.TvTabLayout
+    <com.owen.tab.TvTabLayout
         android:id="@+id/tablayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/y10"
-        app:tabCircleDotRadius="@dimen/x5"
         app:tabCircleDotColor="#000000"
-        app:tabIndicatorResId="@drawable/selector_tabview_circle"
-        app:tabIndicatorWidth="@dimen/x90"
-        app:tabIndicatorHeight="@dimen/x90"
-        app:tabIndicatorGravity="center"
+        app:tabCircleDotRadius="@dimen/x5"
+        app:tabGravity="top"
         app:tabIndicatorBackgroundColor="#000000"
         app:tabIndicatorBackgroundHeight="@dimen/x1"
+        app:tabIndicatorGravity="center"
+        app:tabIndicatorHeight="@dimen/x90"
+        app:tabIndicatorResId="@drawable/selector_tabview_circle"
+        app:tabIndicatorWidth="@dimen/x90"
         app:tabMinWidth="@dimen/x190"
         app:tabScrollMode="scrollable"
-        app:tabGravity="top"
         app:tabTexSize="@dimen/x21"
-        app:tabTextColor="#000000" />
+        app:tabTextColor="#000000"
+        app:tabTextSelectedCentered="true"
+        app:tabTextSelectedScale="1.1"/>
 
-    <com.tv.boost.widget.tablayout.TvTabLayout
+    <com.owen.tab.TvTabLayout
         android:id="@+id/tablayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/y10"
-        app:tabIndicatorResId="@drawable/zx_p1_light"
-        app:tabIndicatorWidth="@dimen/x108"
-        app:tabIndicatorHeight="@dimen/y15"
+        app:tabGravity="center"
         app:tabIndicatorBackgroundColor="#887766"
         app:tabIndicatorBackgroundHeight="@dimen/x4"
+        app:tabIndicatorHeight="@dimen/y15"
+        app:tabIndicatorResId="@drawable/zx_p1_light"
+        app:tabIndicatorWidth="@dimen/x108"
         app:tabMinWidth="@dimen/x160"
-        app:tabScrollMode="fixed"
-        app:tabGravity="center"
         app:tabPaddingBottom="@dimen/x12"
+        app:tabScrollMode="fixed"
         app:tabTexSize="@dimen/x22"
-        app:tabTextColor="@drawable/selector_tab_font_color">
-        
-        <com.tv.boost.widget.tablayout.TabItem
+        app:tabTextColor="@drawable/selector_tab_font_color"
+        app:tabTextSelectedScale="1.2">
+
+        <com.owen.tab.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="标题1"/>
-        
-        <com.tv.boost.widget.tablayout.TabItem
+
+        <com.owen.tab.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="标题2"/>
-        
-    </com.tv.boost.widget.tablayout.TvTabLayout>
+
+    </com.owen.tab.TvTabLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -78,7 +82,7 @@
         android:gravity="right"
         android:orientation="horizontal">
 
-        <com.tv.boost.widget.TvIconButton
+        <com.owen.widget.TvIconButton
             style="@style/icon_button_style"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -86,7 +90,7 @@
             app:tv_icon="@mipmap/icon_1_1"
             app:tv_text="个人"/>
 
-        <com.tv.boost.widget.TvIconButton
+        <com.owen.widget.TvIconButton
             style="@style/icon_button_style"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -94,7 +98,7 @@
             app:tv_icon="@mipmap/icon_1_1"
             app:tv_text="个人"/>
 
-        <com.tv.boost.widget.TvIconButton
+        <com.owen.widget.TvIconButton
             style="@style/icon_button_style"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -102,7 +106,7 @@
             app:tv_icon="@mipmap/icon_1_1"
             app:tv_text="个人"/>
 
-        <com.tv.boost.widget.TvIconButton
+        <com.owen.widget.TvIconButton
             style="@style/icon_button_style"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -115,7 +119,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <com.tv.boost.widget.LabelView
+        <com.owen.widget.LabelView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="0dp"
@@ -128,14 +132,14 @@
             />
     </FrameLayout>
 
-    <com.tv.boost.widget.TvHorizontalScrollView
+    <com.owen.widget.TvHorizontalScrollView
         android:id="@+id/smooth_horizontal_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:tsv_is_selected_centered="false"
-        app:tsv_selected_offset_start="10dp"
-        app:tsv_selected_offset_end="10dp"
-        app:tsv_scroller_duration="700"
+        app:hsv_is_selected_centered="false"
+        app:hsv_scroller_duration="700"
+        app:hsv_selected_offset_end="10dp"
+        app:hsv_selected_offset_start="10dp"
         >
 
         <LinearLayout
@@ -143,31 +147,36 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
+
             <ImageView
                 android:layout_width="150dp"
                 android:layout_height="match_parent"
                 android:focusable="true"
                 android:src="@color/colorAccent"/>
+
             <ImageView
                 android:id="@+id/img1"
                 android:layout_width="130dp"
                 android:layout_height="130dp"
                 android:layout_gravity="center_vertical"
-                android:focusable="true"
-                android:background="@mipmap/icon_1_1"/>
-            <com.tv.boost.widget.RoundFrameLayout
+                android:background="@mipmap/icon_1_1"
+                android:focusable="true"/>
+
+            <com.owen.widget.RoundFrameLayout
                 android:id="@+id/layout_rfl"
                 android:layout_width="200dp"
                 android:layout_height="match_parent"
                 android:focusable="true"
                 app:rfl_radius="@dimen/x30">
+
                 <TextView
-                    android:text="TextView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="#005500"
                     android:gravity="center"
-                    android:background="#005500"/>
-            </com.tv.boost.widget.RoundFrameLayout>
+                    android:text="TextView"/>
+            </com.owen.widget.RoundFrameLayout>
+
             <ImageView
                 android:id="@+id/img2"
                 android:layout_width="150dp"
@@ -175,59 +184,72 @@
                 android:layout_marginLeft="10dp"
                 android:focusable="true"
                 android:src="@drawable/toast_radius_bg"/>
+
             <Button
                 android:layout_width="200dp"
                 android:layout_height="match_parent"
                 />
+
             <ImageButton
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:src="@mipmap/icon_1_1"/>
+
             <Button
                 android:layout_width="200dp"
                 android:layout_height="match_parent"
                 />
+
             <ImageButton
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:src="@mipmap/icon_1_1"/>
+
             <Button
                 android:layout_width="200dp"
                 android:layout_height="match_parent"
                 />
+
             <ImageButton
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:src="@mipmap/icon_1_1"/>
+
             <Button
                 android:layout_width="200dp"
                 android:layout_height="match_parent"
                 />
+
             <ImageButton
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:src="@mipmap/icon_1_1"/>
+
             <Button
                 android:layout_width="200dp"
                 android:layout_height="match_parent"
                 />
+
             <ImageButton
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:src="@mipmap/icon_1_1"/>
+
             <Button
                 android:layout_width="200dp"
                 android:layout_height="match_parent"
                 />
+
             <ImageButton
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:src="@mipmap/icon_1_1"/>
+
             <Button
                 android:layout_width="200dp"
                 android:layout_height="match_parent"
                 />
         </LinearLayout>
-    </com.tv.boost.widget.TvHorizontalScrollView>
+    </com.owen.widget.TvHorizontalScrollView>
 
 </LinearLayout>

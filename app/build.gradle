@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         applicationId "com.owen.tvwidget.demo"
@@ -20,10 +19,12 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:' + rootProject.ext.supportVersion
-//    compile 'com.android.support:design:24.1.1'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'junit:junit:4.12'
+    implementation 'com.android.support:appcompat-v7:' + rootProject.ext.supportVersion
 
-    compile project(':tv-widget')
+    implementation 'me.jessyan:autosize:1.0.5'
+    implementation 'com.owen:tv-focusborder:1.0.0'
+    implementation 'com.owen:tv-tablayout:1.0.1'
+    implementation project(':tv-widget')
 }

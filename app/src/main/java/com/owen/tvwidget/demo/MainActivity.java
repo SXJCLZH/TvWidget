@@ -6,10 +6,10 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.tv.boost.widget.TvHorizontalScrollView;
-import com.tv.boost.widget.focus.AbsFocusBorder;
-import com.tv.boost.widget.focus.FocusBorder;
-import com.tv.boost.widget.tablayout.TvTabLayout;
+import com.owen.focus.AbsFocusBorder;
+import com.owen.focus.FocusBorder;
+import com.owen.tab.TvTabLayout;
+import com.owen.widget.TvHorizontalScrollView;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -25,10 +25,8 @@ public class MainActivity extends AppCompatActivity {
         mHorizontalScrollView.setScrollerDuration(700);
 
         TvTabLayout mTabLayout = (TvTabLayout) findViewById(R.id.tablayout);
-        mTabLayout.setScaleValue(1.2f);
         TvTabLayout mTabLayout2 = (TvTabLayout) findViewById(R.id.tablayout2);
         TvTabLayout mTabLayout3 = (TvTabLayout) findViewById(R.id.tablayout3);
-        mTabLayout3.setScaleValue(1.2f);
         for(int i=0; i<15; i++) {
             mTabLayout.addTab(mTabLayout.newTab().setText("标题"+i), i == 0);
             mTabLayout2.addTab(mTabLayout2.newTab().setText("标题"+i));
@@ -52,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             ;
         } else {
             return new FocusBorder.Builder().asDrawable()
-                    .borderResId(R.drawable.focus)
+                    .borderDrawableRes(R.drawable.focus)
 //                    .borderDrawable(drawable)
             ;
         }

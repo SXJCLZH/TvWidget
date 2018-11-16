@@ -1,4 +1,4 @@
-package com.tv.boost.adapter;
+package com.owen.adapter;
 
 import android.annotation.TargetApi;
 import android.app.Dialog;
@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.tv.boost.R;
+import com.owen.R;
 
 
 /**

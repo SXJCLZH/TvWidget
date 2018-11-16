@@ -1,4 +1,4 @@
-package com.tv.boost.widget;
+package com.owen.widget;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
@@ -14,11 +14,13 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.tv.boost.R;
+import com.owen.R;
 
 
 /**
- * Created by owen on 16/9/27.
+ *
+ * @author owen
+ * @date 16/9/27
  */
 public class TvIconButton extends FrameLayout {
     private TextView mTextView;
@@ -48,27 +50,27 @@ public class TvIconButton extends FrameLayout {
 
         LayoutParams params1 = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         LayoutParams params2 = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        params1.gravity = Gravity.CENTER_VERTICAL| Gravity.RIGHT;
-        params2.gravity = Gravity.CENTER_VERTICAL| Gravity.LEFT;
+        params1.gravity = Gravity.CENTER_VERTICAL | Gravity.RIGHT;
+        params2.gravity = Gravity.CENTER_VERTICAL | Gravity.LEFT;
 
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.IconButton, defStyleAttr, 0);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TvIconButton, defStyleAttr, 0);
         if(a != null) {
-            mTextView.setText(a.getText(R.styleable.IconButton_tv_text));
-            ColorStateList colorStateList = a.getColorStateList(R.styleable.IconButton_tv_textColor);
+            mTextView.setText(a.getText(R.styleable.TvIconButton_tv_text));
+            ColorStateList colorStateList = a.getColorStateList(R.styleable.TvIconButton_tv_textColor);
             if(null != colorStateList) {
                 mTextView.setTextColor(colorStateList);
             }
-            mTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, a.getDimensionPixelOffset(R.styleable.IconButton_tv_textSize, 20));
-            final int padding = a.getDimensionPixelOffset(R.styleable.IconButton_tv_textPadding, 0);
+            mTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, a.getDimensionPixelOffset(R.styleable.TvIconButton_tv_textSize, 20));
+            final int padding = a.getDimensionPixelOffset(R.styleable.TvIconButton_tv_textPadding, 0);
             mTextView.setPadding(padding, padding, padding, padding);
-            int textBg = a.getResourceId(R.styleable.IconButton_tv_textBg, 0);
+            int textBg = a.getResourceId(R.styleable.TvIconButton_tv_textBg, 0);
             if(textBg != 0) {
                 mTextView.setBackgroundResource(textBg);
             }
-            mMoveOffset = a.getDimensionPixelOffset(R.styleable.IconButton_tv_iconMoveOffset, 0);
-            mImageView.setImageResource(a.getResourceId(R.styleable.IconButton_tv_icon, 0));
-            params2.width = a.getDimensionPixelOffset(R.styleable.IconButton_tv_iconWidth, LayoutParams.WRAP_CONTENT);
-            params2.height = a.getDimensionPixelOffset(R.styleable.IconButton_tv_iconHeight, LayoutParams.WRAP_CONTENT);
+            mMoveOffset = a.getDimensionPixelOffset(R.styleable.TvIconButton_tv_iconMoveOffset, 0);
+            mImageView.setImageResource(a.getResourceId(R.styleable.TvIconButton_tv_icon, 0));
+            params2.width = a.getDimensionPixelOffset(R.styleable.TvIconButton_tv_iconWidth, LayoutParams.WRAP_CONTENT);
+            params2.height = a.getDimensionPixelOffset(R.styleable.TvIconButton_tv_iconHeight, LayoutParams.WRAP_CONTENT);
             a.recycle();
         }
 
@@ -78,10 +80,10 @@ public class TvIconButton extends FrameLayout {
     }
 
     private void initAnima() {
+        mWidth = getWidth();
+        mTextWidth = mTextView.getWidth();
         mMoveOffset = Math.max(mMoveOffset, mTextWidth);
-        
         mAnimator1 = ObjectAnimator.ofInt(this, "width", mWidth, mWidth + mMoveOffset).setDuration(300);
-
         mAnimator2 = ObjectAnimator.ofInt(mWidth + mMoveOffset, mWidth).setDuration(300);
         mAnimator2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -95,23 +97,6 @@ public class TvIconButton extends FrameLayout {
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        if(0 == mWidth && getWidth() > 0) {
-            mWidth = getWidth();
-            mTextView.post(new Runnable() {
-                @Override
-                public void run() {
-                    if(mTextWidth == 0) {
-                        mTextWidth = mTextView.getWidth();
-                        initAnima();
-                    }
-                }
-            });
-        }
-    }
-
-    @Override
     public boolean isInEditMode() {
         return true;
     }
@@ -119,8 +104,9 @@ public class TvIconButton extends FrameLayout {
     @Override
     protected void onFocusChanged(boolean gainFocus, int direction, Rect previouslyFocusedRect) {
         super.onFocusChanged(gainFocus, direction, previouslyFocusedRect);
-        if(null == mAnimator2 || null == mAnimator1)
-            return;
+        if(null == mAnimator2 || null == mAnimator1) {
+            initAnima();
+        }
         if(gainFocus) {
             if(mAnimator2.isRunning()) {
                 mAnimator2.cancel();

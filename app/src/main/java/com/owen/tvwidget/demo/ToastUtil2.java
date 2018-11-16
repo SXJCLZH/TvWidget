@@ -10,7 +10,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * Created by owen on 16/8/23.
+ *
+ * @author owen
+ * @date 16/8/23
  */
 public class ToastUtil2 {
     
