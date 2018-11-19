@@ -18,5 +18,10 @@ implementation 'com.owen:tv-widget:1.0.0'
 
 ------
 
+焦点框框架[TvFocusBorder](https://github.com/zhousuqiang/TvFocusBorder)
+
+TvRecyclerView框架[TvRecyclerView](https://github.com/zhousuqiang/TvRecyclerView)
+
+Tab框架[TvTabLayout](https://github.com/zhousuqiang/TvTabLayout)
 
 作者 [owen](https://github.com/zhousuqiang)
