@@ -27,7 +27,7 @@ publish {
     artifactId = 'tv-widget'
     publishVersion = '1.0.1'
     desc = 'TvWidget'
-    website = 'https://github.com/zhousuqiang/TvWidgetDemo'
+    website = 'https://github.com/zhousuqiang/TvWidget'
 }
 
 dependencies {
