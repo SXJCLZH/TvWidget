@@ -14,9 +14,28 @@
 implementation 'com.owen:tv-widget:1.0.1'
 ```
 
-### 更详细的使用请见exmaple
+### 包括的控件
+```java
+|- adapter
+|---- CommonBaseAdapter
+|---- CommonRecyclerViewAdapter
+|---- CommonRecyclerViewHolder
+|---- CommonViewHolder
+
+|- widget
+|---- LabelView
+|---- RoundFrameLayout
+|---- TvGridView
+|---- TvListView
+|---- TvHorizontalScrollView
+|---- TvVerticalScrollView
+|---- TvIconButton
+|---- TvViewPager
+```
 
 ------
+
+### 其它作品
 
 焦点框框架[TvFocusBorder](https://github.com/zhousuqiang/TvFocusBorder)
 
