@@ -11,7 +11,7 @@
 ### Android Studio 集成
 
 ```java
-implementation 'com.owen:tv-widget:1.0.0'
+implementation 'com.owen:tv-widget:1.0.1'
 ```
 
 ### 更详细的使用请见exmaple

@@ -3,10 +3,8 @@ package com.owen.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
-import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,17 +12,9 @@ import java.util.List;
  * Created by owen on 15/7/28.
  */
 public abstract class CommonRecyclerViewAdapter<T> extends RecyclerView.Adapter<CommonRecyclerViewHolder>{
-    public interface OnItemListener{
-        void onItemSelected(View itemView, int position);
-        void onItemClick(View itemView, int position);
-    }
-    
-    private Context mContext;
+    protected Context mContext;
     private LayoutInflater mInflater;
-    private OnItemListener mOnItemListener;
     private List<T> mDatas = new ArrayList<>();
-    private boolean isShowAnim = true;
-    private boolean isBindListener = true;
 
     public CommonRecyclerViewAdapter(Context context){
         mContext = context;
@@ -35,26 +25,41 @@ public abstract class CommonRecyclerViewAdapter<T> extends RecyclerView.Adapter<
         this(context);
         setDatas(datas);
     }
+
+    public void clearDatas(){
+        this.mDatas.clear();
+    }
     
     public void setDatas(List<T> datas){
         this.mDatas = datas;
     }
     
     public void appendDatas(List<T> datas) {
-        int positionStart = getItemCount() - 1;
-        int itemCount = datas.size() - 1;
+        if(null == datas) {
+            return;
+        }
+        int size = mDatas.size();
         this.mDatas.addAll(datas);
-        notifyItemRangeInserted(positionStart, itemCount);
+        notifyItemRangeInserted(size, datas.size());
     }
     
     public void removeItem(int postion) {
         if(null != mDatas && postion < mDatas.size()) {
             mDatas.remove(postion);
+            notifyItemRemoved(postion);
         }
     }
 
-    public void setBindListener(boolean bindListener) {
-        isBindListener = bindListener;
+    public void movedItem(int form, int to) {
+        if(null != mDatas && !mDatas.isEmpty()) {
+            if (form < 0 || form >= getItemCount() || to < 0 || to >= getItemCount()) {
+                return;
+            }
+            T item = mDatas.get(form);
+            mDatas.remove(form);
+            mDatas.add(to-1, item);
+            notifyItemMoved(form, to);
+        }
     }
 
     @Override
@@ -64,51 +69,12 @@ public abstract class CommonRecyclerViewAdapter<T> extends RecyclerView.Adapter<
 
     @Override
     public void onBindViewHolder(final CommonRecyclerViewHolder holder, int position) {
-        if(isBindListener) {
-            onBindItemListener(holder);
-        }
         onBindItemHolder(holder, getItem(position), position);
     }
-    
-    private void onBindItemListener(final CommonRecyclerViewHolder holder){
-        // 设置item的选择与点击监听
-        holder.itemView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                v.setSelected(hasFocus);
-                if (hasFocus) {
-                    if (isShowAnim) {
-                        v.animate().scaleX(1.10f).scaleY(1.10f).setDuration(130).start();
-                    }
 
-                    int pos = holder.getLayoutPosition();
-                    if (null != holder.itemView.getParent() && holder.itemView.getParent() instanceof RecyclerView) {
-                        ((RecyclerView) holder.itemView.getParent()).smoothScrollToPosition(pos);
-                    }
-                    if (null != mOnItemListener) {
-                        mOnItemListener.onItemSelected(holder.itemView, pos);
-                    }
-                } else {
-                    if (isShowAnim) {
-                        v.animate().scaleX(1.0f).scaleY(1.0f).setDuration(130).start();
-                    }
-                }
-            }
-        });
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mOnItemListener) {
-                    int pos = holder.getLayoutPosition();
-                    try {
-                        mOnItemListener.onItemClick(holder.itemView, pos);
-                    } catch (UndeclaredThrowableException E) {
-                        E.printStackTrace();
-                    }
-                }
-            }
-        });
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 
     @Override
@@ -118,18 +84,6 @@ public abstract class CommonRecyclerViewAdapter<T> extends RecyclerView.Adapter<
 
     public T getItem(int position) {
         return (null != mDatas && position < mDatas.size()) ? mDatas.get(position) : null;
-    }
-
-    public void setOnItemListener(OnItemListener listener) {
-            this.mOnItemListener = listener;
-    }
-
-    public boolean isShowAnim() {
-        return isShowAnim;
-    }
-
-    public void setShowAnim(boolean showAnim) {
-        isShowAnim = showAnim;
     }
 
     public abstract int getItemLayoutId(int viewType);

@@ -2,7 +2,6 @@ package com.owen.adapter;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -15,12 +14,10 @@ import java.util.List;
  * 需要与CommonViewHolder配套使用
  */
 public abstract class CommonBaseAdapter<T> extends BaseAdapter {
-    protected LayoutInflater mInflater;
     protected Context mContext;
     protected List<T> mDatas;
 
     public CommonBaseAdapter(Context context) {
-        mInflater = LayoutInflater.from(context);
         this.mContext = context;
     }
 
@@ -31,6 +28,10 @@ public abstract class CommonBaseAdapter<T> extends BaseAdapter {
 
     public void setDatas(List<T> mDatas){
         this.mDatas = mDatas;
+    }
+    
+    public List<T> getDatas() {
+        return mDatas;
     }
 
     @Override

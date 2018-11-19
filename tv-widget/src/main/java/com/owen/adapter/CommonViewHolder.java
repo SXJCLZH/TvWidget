@@ -3,6 +3,7 @@ package com.owen.adapter;
 import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -17,15 +18,16 @@ import android.widget.TextView;
 
 import com.owen.R;
 
-
 /**
  * Created by owen on 15/8/26.
  * 通用ViewHolder类
  * 最好与CommonBaseAdapter配套使用
  */
 public class CommonViewHolder {
+//    private static final int TAG_VIEW_HOLD = 11111;
     private final SparseArray<View> mViews;
     private int mPosition;
+    private int mLayoutId;
     private View mConvertView;
     private Dialog mDialog;
     private Context mContext;
@@ -34,6 +36,7 @@ public class CommonViewHolder {
         this.mContext = context;
         this.mPosition = position;
         this.mViews = new SparseArray<View>();
+        this.mLayoutId = layoutId;
         if(layoutId > 0) {
             this.mConvertView = LayoutInflater.from(context).inflate(layoutId, parent, false);
             // setTag
@@ -64,10 +67,15 @@ public class CommonViewHolder {
      */
     public static CommonViewHolder get(Context context, View convertView,
                                        ViewGroup parent, int layoutId, int position) {
-        if (convertView == null || null == convertView.getTag(R.id.tag_view_hold)) {
+        CommonViewHolder holder = null;
+        if(null != convertView) {
+            holder = (CommonViewHolder) convertView.getTag(R.id.tag_view_hold);
+        }
+        
+        if (null == holder || holder.getLayoutId() != layoutId) {
             return new CommonViewHolder(context, parent, layoutId, position);
         }
-        return ((CommonViewHolder) convertView.getTag(R.id.tag_view_hold)).setPosition(position);
+        return holder.setPosition(position);
     }
 
     public static CommonViewHolder get(Context context, ViewGroup parent, int layoutId) {
@@ -101,7 +109,11 @@ public class CommonViewHolder {
         this.mPosition = position;
         return this;
     }
-    
+
+    public int getLayoutId() {
+        return mLayoutId;
+    }
+
     /**
      * 通过控件的Id获取对于的控件，如果没有则加入views
      *
@@ -112,10 +124,12 @@ public class CommonViewHolder {
         View view = mViews.get(viewId);
         if (view == null)
         {
-            if(null != mConvertView)
+            if(null != mConvertView) {
                 view = mConvertView.findViewById(viewId);
-            else if(null != mDialog)
+            }
+            else if(null != mDialog) {
                 view = mDialog.findViewById(viewId);
+            }
             mViews.put(viewId, view);
         }
         return (T) view;
@@ -170,6 +184,19 @@ public class CommonViewHolder {
         view.setText(stringId);
         return this;
     }
+    
+    public CommonViewHolder setTextColor(int viewId, int color) {
+        TextView view = getView(viewId);
+        view.setTextColor(color);
+        return this;
+    }
+    
+    public CommonViewHolder setTextColor(int viewId, ColorStateList colors) {
+        TextView view = getView(viewId);
+        view.setTextColor(colors);
+        return this;
+    }
+    
     /**
      * 为TextView设置字符串
      *
@@ -303,6 +330,5 @@ public class CommonViewHolder {
         view.setOnClickListener(listener);
         return this;
     }
-
 
 }
