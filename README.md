@@ -1,5 +1,4 @@
 
-群   号：484790001 [群二维码](https://github.com/zhousuqiang/TvRecyclerView/blob/master/images/qq.png)     [ ![Download](https://api.bintray.com/packages/zhousuqiang/maven/tv-widget/images/download.svg) ](https://bintray.com/zhousuqiang/maven/tv-widget/_latestVersion)
 
 > * 日常TV端项目中用到的一些Widget
 > * TvRecyclerView的使用请参考[这里](https://github.com/zhousuqiang/TvRecyclerView)
@@ -34,6 +33,10 @@ implementation 'com.owen:tv-widget:1.0.1'
 ```
 
 ------
+
+扣 扣 群：484790001（注：加群时请写明来源及目的）
+
+![](https://github.com/zhousuqiang/TvRecyclerView/blob/master/images/qq.png)
 
 ### 其它作品
 
