@@ -6,9 +6,9 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.4'
+        classpath 'com.android.tools.build:gradle:3.5.3'
 
-        classpath 'com.novoda:bintray-release:0.9'
+        classpath 'com.novoda:bintray-release:0.9.2'
     }
 }
 
@@ -29,8 +29,7 @@ task clean(type: Delete) {
 }
 
 ext {
-    compileSdkVersion = 27
+    compileSdkVersion = 29
     minSdkVersion = 14
-    targetSdkVersion = 27
-    supportVersion = "27.1.1"
+    targetSdkVersion = 29
 }

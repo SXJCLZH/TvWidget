@@ -10,7 +10,11 @@
 ### Android Studio 集成
 
 ```java
+// support版本
 implementation 'com.owen:tv-widget:1.0.1'
+
+// androidx版本
+implementation 'com.owen:tv-widget:2.0.0'
 ```
 
 ### 包括的控件

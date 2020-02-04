@@ -1,10 +1,11 @@
 package com.owen.tvwidget.demo;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.owen.focus.AbsFocusBorder;
 import com.owen.focus.FocusBorder;

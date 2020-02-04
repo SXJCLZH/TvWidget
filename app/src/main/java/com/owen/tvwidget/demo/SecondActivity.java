@@ -1,13 +1,14 @@
 package com.owen.tvwidget.demo;
 
-import android.app.Activity;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Created by owen on 2017/3/14.
  */
 
-public class SecondActivity extends Activity {
+public class SecondActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
